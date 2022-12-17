@@ -19,7 +19,7 @@ while(True):
     f.close()#记得关文件
     for i in json1['features']:
       if i['properties']['省份']=='山东省':
-        print(i['properties'])
+        # print(i['properties'])
         print("{:2} {}".format(str_days,i['properties']['累计确诊']))
 
 # f = open('./data/data/{}.json'.format(str_days))

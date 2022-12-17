@@ -2,7 +2,7 @@ print("[dayi-lib] writed by dayi!")
 print("[dayi-lib] do u wanna build a snowman?")
 
 import datetime
-import ovo
+import lib.dayi_lib.ovo
 
 def get_days():
   """获得第一次的天数
