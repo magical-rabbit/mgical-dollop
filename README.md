@@ -1,2 +1,1 @@
-# mgical-dollop
-for our homework
+# scaling-potato-python-workB
