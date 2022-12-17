@@ -8,6 +8,8 @@ from fake_useragent import UserAgent  #pip install fake-useragent
 import json
 import os
 
+if not os.path.exists('./data'): #自动建文件夹
+  os.mkdir('./data')
 
 d1 = datetime.timedelta(days=1) #天数变化值
 date = datetime.datetime(year=2019,month=12,day=20)#日期变量
