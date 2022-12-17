@@ -152,18 +152,18 @@ class dayi_db_ovo:
     _,media_type=os.path.splitext(urlparse(media_url).path) #这样相对安全一点
     
     media_local_path_with_file_name = media_local_path+str(media_uuid)+media_type
-    print(media_local_path_with_file_name)
+    # print(media_local_path_with_file_name)
     
     sql_command= "insert or ignore into {table_name} (media_uuid,media_url,media_local_path,media_type) values ('{media_uuid}','{media_url}','{media_local_path}','{media_type}')".format(table_name=table_name,media_uuid=media_uuid,media_local_path=media_local_path_with_file_name,media_type=media_type.split('.')[-1],media_url=media_url)
-    print(sql_command)
+    # print(sql_command)
     self.cur.execute(sql_command)
     self.conn.commit()
     return media_uuid
     
     
 
-db = dayi_db_ovo()
-db.insert_pic_db("http://iuqiweuoqwe.qeryuiqewirqe.cc/rq134132.png12.21.33")
+# db = dayi_db_ovo()
+# db.insert_pic_db("http://iuqiweuoqwe.qeryuiqewirqe.cc/rq134132.png12.21.33")
 
 # print(db.sql_command(sql_text="Select * from covid_19_data"))
 

@@ -12,6 +12,15 @@ from fake_useragent import UserAgent  #pip install fake-useragent
 import urllib
 
 
+#
+import sys
+sys.path.append("../../") #for debug
+import lib.dayi_sqlite as dayidb
+db = dayidb.db()
+
+
+
+
 def fix_url(orgin_url,url_need_fix):#URL自动补全
   #print(fix_url('http://news.sdust.edu.cn/info/1160/77593.htm','/__local/C/CC/6B/A7534B3E2A44181553A7F6B68B8_E99B0979_18B74.jpg'))
   url_str= urllib.parse.urljoin(orgin_url,url_need_fix) #修复url
@@ -41,6 +50,8 @@ def get_pages(url:str):
   soup = BeautifulSoup(res.text, 'html.parser')
 
   news_con = soup.find('div',class_ ='v_news_content')
+  news_title = soup.find('div',class_='d-newsxq-tit').text
+  print("标题:[{}]".format(news_title))
   
   ls = []
   for i in news_con: #图片添加到目录
@@ -50,9 +61,14 @@ def get_pages(url:str):
       img1 = i.find('img')
       img_=img1.attrs['src']
       pic_url = fix_url(url,img_)
+      db.insert_pic_db(pic_url)
       print(pic_url)
+      
+
     print(i.get_text())
     # print(i)
   
+
+
 
 get_pages(url=url1)

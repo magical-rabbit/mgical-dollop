@@ -84,7 +84,7 @@ def get_news(url_org):
         
         url_str= urllib.parse.urljoin(url_org,url_str) #修复url
         str1="{title_str} {date_str} {url}".format(title_str=title_str,date_str=date_str,url=url_str)
-        print(str1)
+        return [202,3,title_str,date_str,url]
       break#退出尝试循环
     except Exception as e:
       print([501,'[dayi-err]python error:{},unknown'.format(str(e))])
