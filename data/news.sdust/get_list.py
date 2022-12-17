@@ -1,4 +1,6 @@
 # 要闻传真的获取
+# 该文件只能获得要闻的数据即 ： news.sdust.edu.cn/ywcz/
+
 import requests #pip install requests
 from bs4 import BeautifulSoup #pip install bs4
 from fake_useragent import UserAgent  #pip install fake-useragent
@@ -96,20 +98,44 @@ def get_news(url_org):
   return None
 
 
+
+
 pages_cnt = get_pages()
 f=open("debug_test.txt","w",encoding="utf-8")
 
-for i in range(pages_cnt):
-  url = 'http://news.sdust.edu.cn/ywcz/{}.htm'.format(i)
-  print("------第{}页_start-------".format(i))
-  f.write("------第{}页_start-------\n".format(i))
-  ls = get_news(url)
+def get_other_pages():
+  for i in range(pages_cnt):
+    exect_num = pages_cnt-i-1
+
+    url = 'http://news.sdust.edu.cn/ywcz/{}.htm'.format(exect_num)
+    # url2 = 'https://www.sdust.edu.cn/sylm/kdyw/{}.htm'.format(i)
+    print("------第{}页_start-------".format(exect_num))
+    f.write("------第{}页_start-------\n".format(exect_num))
+
+    ls = get_news(url)
+    if ls!=None:
+      for j in ls:
+        out_text = "{title_str} {date_str} {url}\n".format(title_str=j[2],date_str=j[3],url=j[4])
+        f.write(out_text)
+
+    f.write("------第{}页_end-------\n".format(exect_num))
+    print("------第{}页_end-------".format(exect_num))
+
+
+# 首页
+def get_first_page():
+  url_first = 'https://news.sdust.edu.cn/ywcz.htm' #第一页
+  
+  print("------第首页_start-------")
+  f.write("------第首页_start-------\n")
+  
+  ls = get_news(url_first)
   if ls!=None:
     for j in ls:
       out_text = "{title_str} {date_str} {url}\n".format(title_str=j[2],date_str=j[3],url=j[4])
       f.write(out_text)
-  
-  f.write("------第{}页_end-------\n".format(i))
-  print("------第{}页_end-------".format(i))
+  f.write("------第首页_end-------\n")
+  print("------第首页_end-------")
 
-print(get_pages())
+get_first_page()
+print(get_other_pages())
