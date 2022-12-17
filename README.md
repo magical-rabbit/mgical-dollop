@@ -3,5 +3,6 @@
 ## Install
 
 ```bash
-pip install -r requirements.txt https://mirrors.ustc.edu.cn/pypi/web/simple
+# pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple --upgrade pip
+pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple -r requirements.txt 
 ```
