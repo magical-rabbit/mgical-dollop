@@ -11,7 +11,7 @@ import lib.dayi_lib as dayi_lib
 
 db = dayi_db.db()
 
-def gen_covid_data():
+def gen_covid_data_DB():
   days = dayi_lib.get_days()
   str_days = dayi_lib.get_day_str(days)
   
@@ -22,8 +22,6 @@ def gen_covid_data():
     str_days=dayi_lib.get_day_str(days)
     # print(file_path)
     # print(os.getcwd())
-    
-    
     if os.path.exists(file_path):
       #找到了文件，开玩
       # print("ovo"+file_path)
@@ -47,6 +45,6 @@ def gen_covid_data():
           print("{:2} {}".format(str_days,i['properties']['累计确诊']))
   return
 
-gen_covid_data()
+gen_covid_data_DB()
           
           
