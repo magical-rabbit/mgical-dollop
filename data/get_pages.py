@@ -29,7 +29,6 @@ def get_pages_only_text(url:str):
   
   news_only_text = news_con.get_text().strip()#.replace('\n','')
   
-  
   f=open("out.test.txt","w",encoding="utf-8")
   f.write(news_only_text)
   f.close()
