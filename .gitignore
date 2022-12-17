@@ -10,6 +10,7 @@ dayi-db.db
 lib/dayi_sqlite/dayi-db.db
 auto_push.py
 lib/dayi_sqlite/dayi-db.db
+data/out.test.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
