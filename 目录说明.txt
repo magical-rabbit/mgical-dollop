@@ -1,0 +1,53 @@
+D:.
+│  .gitignore  git自动忽略的文件
+│  analyse1.py 分析json文件
+│  auto_push.py 自动git push
+│  dayi-db.db 生成的sqlite数据库文件
+│  insert_covid_data.py 用covid data生成数据库文件
+│  LICENSE 仓库许可证
+│  ovo.txt 这是啥
+│  README.md 
+│  requirements.txt pip依赖
+│  目录说明.txt
+│  
+├─.vscode vscode配置信息，没啥用
+│      launch.json
+│      
+├─data
+│  │  test.py 没有用
+│  │  
+│  ├─covid-19
+│  │  │  get_data.py 自动获得/更新数据
+│  │  
+│  │          
+│  └─news.sdust
+│      │  dayi-db.db 测试文件
+│      │  debug_test.txt 测试文件
+│      │  get_list.py 获得传闻的列表
+│      │  get_pages.py 获得具体的新闻页
+│      │  get_title.py 获得标题，时间，点击率
+│      │  
+│      └─data
+│          └─pic 打算在这里存下好的图片
+├─debug 调试文件夹
+│      quickly.md 加快git
+│      test-dayi.py 没啥用？
+│      
+├─gen_data 本来打算在这里生成文件夹
+└─lib 依赖库
+    ├─dayi_lib 写得一些重复度高的函数，封装起来
+    │  │  ovo.py  有关的简单的函数
+    │  │  __init__.py 引用包的时候，会首先加载这个文件
+    │  │  
+    │  └─__pycache__ python的缓存，无用
+    │          ovo.cpython-39.pyc
+    │          __init__.cpython-39.pyc
+    │          
+    └─dayi_sqlite dayi的数据库函数的合集，封装成class了，还没写完
+        │  build.py sqlite数据库合集
+        │  __init__.py 引用包dayi_sqlite的时候，会首先加载这个文件
+        │  
+        └─__pycache__  python的缓存，无用
+                build.cpython-39.pyc
+                __init__.cpython-39.pyc
+                
