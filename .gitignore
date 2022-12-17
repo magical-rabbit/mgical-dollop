@@ -8,7 +8,7 @@ dayi-db.db
 .db-journal
 ?dayi-db.db
 lib/dayi_sqlite/dayi-db.db
-auto_push.py
+# auto_push.py
 lib/dayi_sqlite/dayi-db.db
 
 # Byte-compiled / optimized / DLL files
