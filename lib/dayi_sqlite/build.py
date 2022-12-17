@@ -1,7 +1,12 @@
 import sqlite3
 import datetime,time
+import uuid #用于插入媒体的时候判断唯一的信息
+
+import os #解析文件名（手动解析也是可以的，但是 str(media_url).split('.')[-1].lower() 感觉肯定会有问题）
+from urllib.parse import urlparse #用这个解析url比较安全
+
 __dayi_debug__ = True
-__dayi_rm_db__ = True
+__dayi_rm_db__ = False
 
 class dayi_db_ovo:
   def __init__(self,dbpath='./dayi-db.db'):
@@ -77,8 +82,9 @@ class dayi_db_ovo:
     """
 
     table_create_media_list="""
-      CREATE TABLE IF NOT EXISTS list (
+      CREATE TABLE IF NOT EXISTS media_list (
         "id" INTEGER NOT NULL,
+        "media_uuid" TEXT,
         "media_url" TEXT,
         "media_local_path" TEXT,
         "media_type" TEXT,
@@ -126,10 +132,38 @@ class dayi_db_ovo:
     self.cur.execute(sql_command)
     self.conn.commit()
   
-  # 插入covid-19的统计数据
+  def insert_pic_db(self,media_url,media_local_path='./data/news.sdust/data/pic/',media_type='jpg'):
+    """图片插入
+    "media_url" TEXT, 图片URL
+    "media_local_path" TEXT 图片的本地存储路径,仅目录,图片名字用UUID生成
+    "media_type" TEXT, 图片的类型
+    "media_file_size" TEXT, 图片的大小
+    "media_uuid" TEXT,
+    Args:
+        参数其实只有url有用
+    """
+    
+    table_name='media_list' #表名
+    
+    media_uuid=uuid.uuid1() #生成UUID
+    # media_type=str(media_url).split('.')[-1].lower() #这样写其实不是很好
+    # print()
+    # print(urlparse(media_url).path)
+    _,media_type=os.path.splitext(urlparse(media_url).path) #这样相对安全一点
+    
+    media_local_path_with_file_name = media_local_path+str(media_uuid)+media_type
+    print(media_local_path_with_file_name)
+    
+    sql_command= "insert or ignore into {table_name} (media_uuid,media_url,media_local_path,media_type) values ('{media_uuid}','{media_url}','{media_local_path}','{media_type}')".format(table_name=table_name,media_uuid=media_uuid,media_local_path=media_local_path_with_file_name,media_type=media_type.split('.')[-1],media_url=media_url)
+    print(sql_command)
+    self.cur.execute(sql_command)
+    self.conn.commit()
+    return media_uuid
+    
     
 
-# db = dayi_db()
+db = dayi_db_ovo()
+db.insert_pic_db("http://iuqiweuoqwe.qeryuiqewirqe.cc/rq134132.png12.21.33")
 
 # print(db.sql_command(sql_text="Select * from covid_19_data"))
 

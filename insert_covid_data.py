@@ -45,6 +45,6 @@ def gen_covid_data_DB():
           print("{:2} {}".format(str_days,i['properties']['累计确诊']))
   return
 
-gen_covid_data_DB()
+gen_covid_data_DB() #插入到数据库中
           
           

@@ -6,6 +6,8 @@ data/covid-19/data/data.7z
 *dayi-db.db
 dayi-db.db
 .db-journal
+?dayi-db.db
+lib/dayi_sqlite/dayi-db.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -137,3 +139,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
