@@ -4,6 +4,8 @@ data/data/*
 data/covid-19/data/*
 data/covid-19/data/data.7z
 *dayi-db.db
+dayi-db.db
+.db-journal
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
