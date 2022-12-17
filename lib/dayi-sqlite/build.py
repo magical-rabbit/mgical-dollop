@@ -1,5 +1,7 @@
 import sqlite3
+import datetime,time
 __dayi_debug__ = True
+__dayi_rm_db__ = True
 
 class dayi_db:
   def __init__(self,dbpath='./dayi-db.db'):
@@ -36,7 +38,13 @@ class dayi_db:
     return self.conn
   
   def __del_data_base__(self):
-    dbpath = self.dbpath
+    
+    if __dayi_rm_db__ == False: #不删除数据库
+      if __dayi_debug__:
+        print([101,'[dayi-info]不进行删除数据库'])
+      return [101,'[dayi-info]不进行删除数据库']
+  
+    dbpath = self.dbpath #获得数据库目录
     
     if __dayi_debug__: print([203,'[dayi-warning]Will delete database:'+dbpath])
     try:
@@ -86,7 +94,7 @@ class dayi_db:
         "date" TEXT,
         "date_unix" interger,
         "province_code" TEXT,
-        "province" TEXT,
+        "province_name" TEXT,
         "seem_add" TEXT,
         "seem_all" TEXT,
         "sure_add" TEXT,
@@ -105,9 +113,25 @@ class dayi_db:
     self.conn.commit()#保存数据库
     return
   
+  def insert_covid_date(self,date:datetime,province_name,province_code,sure_add,sure_all,die_add,die_all):
+    table_name = 'covid_19_data' #表名
+    date_unix = time.mktime(date.timetuple()) #unix time
+    date_str = date.strftime("%Y%m%d") #20220101
+    
+    print(date_unix)
+    sql_command="insert or ignore into {table_name} (date,date_unix,province_name,province_code,sure_add,sure_all,die_add,die_all) values ('{date_str}','{date_unix}','{province_name}','{province_code}','{sure_add}','{sure_all}','{die_add}','{die_all}');".format(table_name=table_name,date_str=date_str,date_unix=date_unix,province_code=province_code,province_name=province_name,sure_add=sure_add,sure_all=sure_all,die_add=die_add,die_all=die_all)
+    
+    print(sql_command)
+    
+    self.cur.execute(sql_command)
+    self.conn.commit()
+  
   # 插入covid-19的统计数据
     
 
 db = dayi_db()
 
 print(db.sql_command(sql_text="Select * from covid_19_data"))
+
+dt = datetime.datetime(2022,1,1)
+db.insert_covid_date(dt,"山东省","37000000",sure_add=1,sure_all=10,die_all=0,die_add=0)
