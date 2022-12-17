@@ -72,6 +72,7 @@ def get_news(url_org):
       #开始解析
       soup = BeautifulSoup(res.text, 'html.parser')
       ans = soup.find_all('tr',id=re.compile("line_u4_*"))#模糊匹配line_u4_*
+      ls_res=[]
       for i in ans:
         # print("-------------------------")
         t = i.find_all('td')
@@ -84,19 +85,31 @@ def get_news(url_org):
         
         url_str= urllib.parse.urljoin(url_org,url_str) #修复url
         str1="{title_str} {date_str} {url}".format(title_str=title_str,date_str=date_str,url=url_str)
-        return [202,3,title_str,date_str,url]
+        print(str1)
+        ls_res.append([202,3,title_str,date_str,url_str])
+      return ls_res
       break#退出尝试循环
     except Exception as e:
       print([501,'[dayi-err]python error:{},unknown'.format(str(e))])
       attempt+=1
       pass
+  return None
 
 
 pages_cnt = get_pages()
+f=open("debug_test.txt","w",encoding="utf-8")
+
 for i in range(pages_cnt):
   url = 'http://news.sdust.edu.cn/ywcz/{}.htm'.format(i)
   print("------第{}页_start-------".format(i))
-  get_news(url)
-  print("------第{}页_end-------".format(i))
+  f.write("------第{}页_start-------\n".format(i))
+  ls = get_news(url)
+  if ls!=None:
+    for j in ls:
+      out_text = "{title_str} {date_str} {url}\n".format(title_str=j[2],date_str=j[3],url=j[4])
+      f.write(out_text)
   
+  f.write("------第{}页_end-------\n".format(i))
+  print("------第{}页_end-------".format(i))
+
 print(get_pages())
