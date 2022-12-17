@@ -2,7 +2,7 @@
 lib/dayi-sqlite/dayi-db.db
 data/data/*
 data/covid-19/data/*
-
+data/covid-19/data/data.7z
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
