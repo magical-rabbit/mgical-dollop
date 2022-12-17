@@ -9,9 +9,3 @@ print(os2)
 
 os.system(os2)
 os.system("git push")
-# print(dt_str)
-# os.system
-
-# git add .
-# git commit -m "%time%"
-# git push
