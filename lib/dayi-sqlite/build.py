@@ -45,7 +45,11 @@ class dayi_db:
       if __dayi_debug__: print([203,'[dayi-warning]Deleted database:'+dbpath])
     except Exception as e:
       if __dayi_debug__:print([401,'[dayi-error]数据库删除失败:'+str(e)])
-      
+  
+  def sql_command(self,sql_text):
+    self.cur.execute(sql_text)
+    ans = self.conn.commit()
+    return ans 
   
   def build_tables(self):
     table_create_content_list="""
@@ -100,5 +104,10 @@ class dayi_db:
     
     self.conn.commit()#保存数据库
     return
+  
+  # 插入covid-19的统计数据
+    
 
 db = dayi_db()
+
+print(db.sql_command(sql_text="Select * from covid_19_data"))
