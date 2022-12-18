@@ -3,7 +3,7 @@ os.system("git pull")
 os.system("git add .")
 import datetime
 dt = datetime.datetime.now()
-dt_str = dt.strftime("%y年%m月%d日%H:%M:%S IO优化，现在处理covid数据只需要不到30s")
+dt_str = dt.strftime("%y年%m月%d日%H:%M:%S 修复vscode不能debug的问题")
 
 os2 = 'git commit -m "{}" '.format(dt_str)
 print(os2)

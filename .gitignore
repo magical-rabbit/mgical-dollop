@@ -9,6 +9,7 @@ dayi-db.db
 ?dayi-db.db
 lib/dayi_sqlite/dayi-db.db
 auto_push.py
+auto_push.py
 lib/dayi_sqlite/dayi-db.db
 data/out.test.txt
 data/news.sdust/pic/*
