@@ -6,7 +6,7 @@ import os #解析文件名（手动解析也是可以的，但是 str(media_url)
 from urllib.parse import urlparse #用这个解析url比较安全
 
 __dayi_debug__ = True
-__dayi_rm_db__ = True
+__dayi_rm_db__ = False
 
 class dayi_db_ovo:
   def __init__(self,dbpath='./dayi-db.db'):

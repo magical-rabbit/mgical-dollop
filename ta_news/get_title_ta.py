@@ -31,9 +31,9 @@ for i in range(1,18):
 
     #获取标题，发布时间，点击量
     if page==1:
-        f=open('./data.txt','w')
+        f=open('./data.txt','w',encoding='utf-8')
     else:
-        f=open('./data.txt','a')
+        f=open('./data.txt','a',encoding='utf-8')
     for j in range(0,10):
         url=urllist[j]
         headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46'}

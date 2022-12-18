@@ -61,7 +61,7 @@ def get_pages(url:str):
       img1 = i.find('img')
       img_=img1.attrs['src']
       pic_url = fix_url(url,img_)
-      db.insert_pic_db(pic_url)
+      #db.insert_pic_db(pic_url)
       print(pic_url)
       
 

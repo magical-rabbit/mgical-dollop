@@ -3,7 +3,7 @@ os.system("git pull")
 os.system("git add .")
 import datetime
 dt = datetime.datetime.now()
-dt_str = dt.strftime("%y年%m月%d日%H:%M:%S 数据库支持图片插入，并且自动带日期")
+dt_str = dt.strftime("%y年%m月%d日%H:%M:%S ")
 
 os2 = 'git commit -m "{}" '.format(dt_str)
 print(os2)
