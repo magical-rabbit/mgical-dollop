@@ -16,7 +16,9 @@ from bs4 import BeautifulSoup #pip install bs4
 from fake_useragent import UserAgent  #pip install fake-useragent
 #pip install lxml
 import urllib
-
+import aiohttp
+import asyncio
+import os
 
 #
 # import sys
@@ -110,5 +112,45 @@ def get_pages_pic(url:str):
 
 
 
+
+
+
 # print(get_pages_pic(url=url1))
 
+# async def async_get_pages_only_text_main(url:str):
+#   async with aiohttp.ClientSession() as session:
+#     headers={'User-Agent':ua.random}
+#     async with session.get(url,headers=headers) as res:
+#       res.encoding = 'utf-8'
+#       soup = await BeautifulSoup(res.text, 'html.parser')
+#       news_con = soup.find('div',class_ ='v_news_content')
+#       news_only_text = news_con.get_text().strip()#.replace('\n','')
+#       return [202,2,'text',news_only_text]
+
+# async def async_get_pages_pic(url:str):
+#   # return await async_get_pages_only_text_main(url)
+#   att = 0
+#   while att<=4:
+#     try:
+#       return await async_get_pages_only_text_main(url)
+#     except Exception as e:
+#       dayi_err_info = [501,'[dayi-error]未知错误,获得页面图片时失败:{} 尝试重试次数:{}'.format(str(e),att)]
+#       print(dayi_err_info)
+#       att+=1
+#       return [501,'[dayi-error]未知错误,获得页面图片时失败:{} 尝试重试次数:{}'.format(str(e),att)]
+# import time
+
+# time_start=time.time()
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# asyncio.run(async_get_pages_pic('http://www.sdust.edu.cn/info/1034/15734.htm'))
+# time_end=time.time()
+# print('time cost',time_end-time_start,'s')
