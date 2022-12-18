@@ -6,6 +6,7 @@ url : 下载链接
 file_save_path : 文件下载目录
 file_name : 文件名
 """
+# 接口返回: [201,'[dayi-info]图片下载完成:{}{}'.format(file_save_path,file_name)]
 
 # 没写完
 # test_url = 'https://ta.sdust.edu.cn/__local/E/CD/7F/A6575D5E4528C31029D3DB1BA44_0E66939E_150A1.jpg'
