@@ -1,11 +1,14 @@
 # 要闻传真的获取
 # 该文件只能获得要闻的数据即 ： news.sdust.edu.cn/ywcz/
+# 数据格式: [[202,3,title_str,date_datetime,url_str]]
+# 数据样例: [[202, 3, '学校获评全国“ 四星易班工作站”', datetime.datetime(2022, 12, 6, 0, 0), 'http://www.sdust.edu.cn/info/1034/15628.htm'],[202,3,'balabal',...]]
 
 import requests #pip install requests
 from bs4 import BeautifulSoup #pip install bs4
 from fake_useragent import UserAgent  #pip install fake-useragent
 import re #模糊匹配
 import urllib #自动补全网址
+import datetime
 
 dayi_debug=1
 
@@ -87,7 +90,7 @@ def get_news(url_org):
         
         url_str= urllib.parse.urljoin(url_org,url_str) #修复url
         str1="{title_str} {date_str} {url}".format(title_str=title_str,date_str=date_str,url=url_str)
-        print(str1)
+        # print(str1)
         ls_res.append([202,3,title_str,date_str,url_str])
       return ls_res
       break#退出尝试循环
@@ -100,10 +103,11 @@ def get_news(url_org):
 
 
 
-pages_cnt = get_pages()
+
 f=open("debug_test.txt","w",encoding="utf-8")
 
 def get_other_pages():
+  res_ls = []
   for i in range(pages_cnt):
     exect_num = pages_cnt-i-1
 
@@ -117,25 +121,61 @@ def get_other_pages():
       for j in ls:
         out_text = "{title_str} {date_str} {url}\n".format(title_str=j[2],date_str=j[3],url=j[4])
         f.write(out_text)
-
+        publish_time =j[3] #2022-12-15
+        publish_time_ls = re.findall(r"\d+\.?\d*",publish_time) #解析为[2022,12,15]
+        publish_time_dt = datetime.datetime(year=int(publish_time_ls[0]),month=int(publish_time_ls[1]),day=int(publish_time_ls[2])) #修改为datetime
+        j[3]=publish_time_dt #返回值重新修改
+        res_ls.append(j)
+        
     f.write("------第{}页_end-------\n".format(exect_num))
     print("------第{}页_end-------".format(exect_num))
-
+  return res_ls
 
 # 首页
 def get_first_page():
   url_first = 'https://news.sdust.edu.cn/ywcz.htm' #第一页
   
-  print("------第首页_start-------")
+  res_ls = [] #返回主要的数据
+  
+  # print("------第首页_start-------")
   f.write("------第首页_start-------\n")
   
   ls = get_news(url_first)
   if ls!=None:
     for j in ls:
       out_text = "{title_str} {date_str} {url}\n".format(title_str=j[2],date_str=j[3],url=j[4])
+      
+      publish_time =j[3] #2022-12-15
+      publish_time_ls = re.findall(r"\d+\.?\d*",publish_time) #解析为[2022,12,15]
+      publish_time_dt = datetime.datetime(year=int(publish_time_ls[0]),month=int(publish_time_ls[1]),day=int(publish_time_ls[2])) #修改为datetime
+      j[3]=publish_time_dt #返回值重新修改
+      
+      res_ls.append(j) #保存数据
       f.write(out_text)
   f.write("------第首页_end-------\n")
-  print("------第首页_end-------")
+  # print("------第首页_end-------")
+  return res_ls 
 
-get_first_page()
-print(get_other_pages())
+pages_cnt = 10086 #总页数 
+
+# get_first_page()
+# print(get_other_pages())
+
+# 要闻传真列表的全部获得
+def get_all_news():
+  global pages_cnt #设置全局变量
+  pages_cnt = get_pages() #获得总页数
+  ls_ans = []
+  ls_first = get_first_page()
+  ls_other = get_other_pages()
+  ls_all = ls_first+ls_other
+  print(ls_all)
+  return ls_all
+
+f = open('ls-all-list.debug','w',encoding='utf-8') #调试文件重定向
+# ff=open('ls-all.debug','w',encoding='utf-8')
+# ff.write(str(get_all_news()))
+# ff.close()
+
+
+# get_all_news()
