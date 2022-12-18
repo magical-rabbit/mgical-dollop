@@ -132,7 +132,7 @@ class dayi_db_ovo:
     # print(sql_command)
     
     self.cur.execute(sql_command)
-    self.conn.commit()
+    # self.conn.commit()
   
   def insert_pic_db(self, media_url, media_local_path='./data/news.sdust/data/pic/', media_type='jpg', date: datetime=datetime.datetime(2022,1,1)):
     """图片插入
