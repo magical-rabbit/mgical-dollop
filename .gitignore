@@ -175,3 +175,7 @@ data/news_sdust/data/pic/2020/01/4f9c2071-7ed7-11ed-bdea-70cd0dec807d.jpeg
 data/news_sdust/data/pic/2022/03/5580796a-7ed7-11ed-b1a7-70cd0dec807d.jpeg
 data/news_sdust/data/pic/2022/05/a60a4734-7ed6-11ed-97ec-70cd0dec807d.jpeg
 data/news_sdust/data/pic/2022/08/becffa21-7ed6-11ed-8c78-70cd0dec807d.jpeg
+wordcloud/data.txt
+wordcloud/stopwords
+wordcloud/out/Figure_2.jpeg
+wordcloud/template/91529822720e0cf31ea30fc80946f21fbe09aaa9.jfif
