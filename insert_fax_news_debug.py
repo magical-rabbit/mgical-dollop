@@ -80,8 +80,8 @@ from sqlalchemy import create_engine
 
 
 def main():
-  # list_news = get_all_news()
-  list_news = debug_load()
+  list_news = get_all_news()
+  # list_news = debug_load() #从缓存文件中读入
 
   f.write(str(list_news)) 
   debug_dump(list_news)
