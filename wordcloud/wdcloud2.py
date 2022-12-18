@@ -13,7 +13,7 @@ def ciyun():
     wordlist = jieba.lcut(textfile)#切割词语
     space_list = ' '.join(wordlist) #空格链接词语
     #print(space_list)
-    backgroud = np.array(Image.open('template/91529822720e0cf31ea30fc80946f21fbe09aaa9.jpg')) 
+    backgroud = np.array(Image.open('template/7EFV(UH}@I2RQLEJERNBF9M.jpg')) 
 	
     wc = WordCloud(width=80000, height=80000,
 			background_color='white',
