@@ -190,7 +190,7 @@ class dayi_db_ovo:
     return
     
   def commit_db(self): #保存数据库，因为IO太慢了，得分开
-    self.conn.commit()
+    # self.conn.commit()
     # self.conn.commit()
     return
 
