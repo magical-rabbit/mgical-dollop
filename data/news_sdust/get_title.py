@@ -12,15 +12,15 @@ import urllib
 import re
 import datetime
 
-ua = UserAgent()
-
 def get_click_num(res_num): #获得点击量，如果可以异步就好啦
+  ua = UserAgent()
   url1='http://www.sdust.edu.cn/system/resource/code/news/click/dynclicks.jsp?clickid={click_id}&owner={own}&clicktype=wbnews'.format(click_id=res_num[1],own=res_num[0])
   headers={'User-Agent':ua.random}
   res = requests.get(url1,headers=headers)
   return res.text
 
 def get_title_on_news_main(url:str):
+  ua = UserAgent()
   headers={'User-Agent':ua.random}
   res = requests.get(url)
   res.encoding = 'utf-8'
@@ -46,10 +46,10 @@ def  get_title_on_news(url:str):
     try:
       return  get_title_on_news_main(url)
     except Exception as e:
-      dayi_err_info = [501,'[dayi-error]未知错误,获得页面图片时失败:{} 尝试重试次数:{}'.format(str(e),att)]
+      dayi_err_info = [501,'[dayi-error]未知错误,获得页面时失败:{} 尝试重试次数:{}'.format(str(e),att)]
       print(dayi_err_info)
       att+=1
-  return [501,'[dayi-error]未知错误,获得页面图片时失败:{} 尝试重试次数:{}'.format(str(e),att)]
-    
+  return [501,'[dayi-error]未知错误,获得页面图片时失败 尝试重试次数:{} url:{}'.format(att,url)]
+  
 
-#print(get_title_on_news('https://www.sdust.edu.cn/info/1034/15737.htm'))
+print(get_title_on_news('https://www.sdust.edu.cn/info/1034/15737.htm'))

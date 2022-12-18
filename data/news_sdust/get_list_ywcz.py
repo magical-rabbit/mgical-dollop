@@ -104,7 +104,7 @@ def get_news(url_org):
 
 
 
-f=open("debug_test.txt","w",encoding="utf-8")
+f=open("debug_test.txt.debug","w",encoding="utf-8")
 
 def get_other_pages():
   res_ls = []

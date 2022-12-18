@@ -7,14 +7,26 @@ from data.news_sdust import * #爬虫相关的库
 
 f = open('test-out.debug','w',encoding='utf-8') #调试信息的输出
 
+# ----------for debug quickly-----------#
+#写入对象到内存
+import sys, shelve #debug
+file = shelve.open("list_news.dat.debug")
+file['debug-list-news']=list_news
+# ----------for debug quickly-----------#
+
 def main():
-  list_news = get_all_news()
+  # list_news = get_all_news()
+  
+  
   f.write(str(list_news))
   
+  
   for i in list_news:
-    now_url = i[3]
+    now_url = i[4]
     now_title = i[2]
-    list_page_only_text = get_pages_only_text()
+    now_datetime = i[3]
+
+    list_page_only_text = get_pages_only_text(now_url)
   
   return
 

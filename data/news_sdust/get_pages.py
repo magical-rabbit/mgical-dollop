@@ -42,10 +42,10 @@ def get_pages_only_text(url:str):
     soup = BeautifulSoup(res.text, 'html.parser')
     news_con = soup.find('div',class_ ='v_news_content')
     news_only_text = news_con.get_text().strip()#.replace('\n','')
-    f=open("out.test.txt","w",encoding="utf-8")
+    f=open("out.test.debug","w",encoding="utf-8")
     f.write(news_only_text)
     f.close()
-    print(news_only_text)
+    # print(news_only_text)
     return [202,2,'text',news_only_text]
   except Exception as e:
     return [501,'[dayi-error]获得文字信息出现错误:{} url:{}'.format(str(e),url)]
