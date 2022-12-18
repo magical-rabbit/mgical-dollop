@@ -5,6 +5,7 @@ db = dayidb.db() #初始化数据库，已经都自动初始化啦
 
 from data.news_sdust import * #爬虫相关的库
 
+f = open('test-out.debug','w')
 
 def main():
   list_news = get_all_news()

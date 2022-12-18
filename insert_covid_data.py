@@ -46,5 +46,5 @@ def gen_covid_data_DB():
   return
 
 gen_covid_data_DB() #插入到数据库中
-          
+db.conn.commit() #保存数据库（IO太慢，手动优化）
           

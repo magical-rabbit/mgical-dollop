@@ -3,7 +3,7 @@ os.system("git pull")
 os.system("git add .")
 import datetime
 dt = datetime.datetime.now()
-dt_str = dt.strftime("%y年%m月%d日%H:%M:%S 新闻页面的接口进行打包")
+dt_str = dt.strftime("%y年%m月%d日%H:%M:%S 添加新闻内容数据库插入接口:db.insert_content_db")
 
 os2 = 'git commit -m "{}" '.format(dt_str)
 print(os2)

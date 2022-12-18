@@ -71,7 +71,7 @@ class dayi_db_ovo:
       "content_title" text,
       "content_publish_time" TEXT,
       "content_publish_time_unix" TEXT,
-      "content_with_pic" TEXT,
+      "content_clicks_num" TEXT,
       "content_only_text" TEXT,
       "content_only_pic" TEXT,
       "content_url" TEXT,
@@ -161,8 +161,36 @@ class dayi_db_ovo:
     sql_command= "insert or ignore into {table_name} (media_uuid,media_url,media_local_path,media_type,media_is_downloaded,media_date_str) values ('{media_uuid}','{media_url}','{media_local_path}','{media_type}','{media_is_downloaded}','{media_date_str}')".format(table_name=table_name,media_uuid=media_uuid,media_local_path=media_local_path_with_file_name,media_type=media_type.split('.')[-1],media_url=media_url,media_is_downloaded=0,media_date_str=date_str)
     # print(sql_command)
     self.cur.execute(sql_command)
-    self.conn.commit()
+    # self.conn.commit() #IO太慢啦
     return media_uuid
+  def insert_content_db(self,content_title,date:datetime,content_clicks_num,content_only_text,content_url,content_only_pic='',content_all=''):
+    """插入图片的信息到数据库中,请注意,此方法需要手动进行更新数据库
+      CREATE TABLE IF NOT EXISTS content_list(
+      "id" INTEGER NOT NULL,
+      "content_title" text,
+      "content_publish_time" TEXT,
+      "content_publish_time_unix" TEXT,
+      "content_clicks_num" TEXT,
+      "content_only_text" TEXT,
+      "content_only_pic" TEXT,
+      "content_url" TEXT,
+      "content_all" TEXT,
+      "json" TEXT,
+      PRIMARY KEY ("id")
+      );
+    """
+    table_name='content_list' #表名
+    date_unix = time.mktime(date.timetuple()) #unix time
+    date_str = date.strftime("%Y%m%d") #20220101
+    
+    sql_command= "insert or ignore into {table_name} (content_title,content_publish_time,content_publish_time_unix,content_clicks_num,content_only_text,content_only_pic,content_url,content_all) values ('{content_title}','{content_publish_time}','{content_publish_time_unix}','{content_clicks_num}','{content_only_text}','{content_only_pic}','{content_url}','{content_all}')".format(content_title=content_title,content_publish_time=date_str,content_publish_time_unix=date_unix,content_clicks_num=content_clicks_num,content_only_text=content_only_text,content_only_pic=content_only_pic,content_url=content_url,content_all=content_all,table_name=table_name)
+    # print(sql_command)
+    self.cur.execute(sql_command)
+    
+  def commit_db(self): #保存数据库，因为IO太慢了，得分开
+    self.conn.commit()
+    return
+
     
     
 
@@ -173,3 +201,6 @@ class dayi_db_ovo:
 
 # dt = datetime.datetime(2022,1,1)
 # db.insert_covid_date(dt,"山东省","37000000",sure_add=1,sure_all=10,die_all=0,die_add=0)
+
+# db.insert_content_db("标题",dt,"2333","猴子开飞机",'http://monkey',"http://pic_monkey")
+# db.conn.commit()
