@@ -26,35 +26,45 @@ def debug_load():
   data_key = 'data-key-ovo'
   return file[data_key]
 
+
+cnt_pages = -1
+
+async def do_something(i,cnt_now):
+  global cnt_pages
+  now_url = i[4]
+  now_title = i[2]
+  now_datetime = i[3]
+  # print(now_url)
+  list_page_only_text = get_pages_only_text(now_url) # [202, 2, 'text', '12月15日']
+  list_page_only_text_str = get_pages_only_text(now_url)[3]
+  now_click_num = get_title_on_news(now_url)[4]  #[202, 3, '校党委理论', datetime.datetime(2022, 12, 16, 0, 0), '844']
+  db.insert_content_db(now_title, now_datetime, now_click_num, list_page_only_text_str, now_url)
+  print('完成下载:{} 点击率:{} {now_cnt}/{all_cnt}'.format(now_title,now_click_num,now_cnt=cnt_now,all_cnt=cnt_pages))
+  
+
 def main():
   # list_news = get_all_news()
   list_news = debug_load()
 
   f.write(str(list_news)) 
   debug_dump(list_news)
-  
-  cnt_pages = len(list_news)
-  cnt_now = 0
+
+  global cnt_pages
+  cnt_pages =len(list_news)
+  cnt_now=0
 
   for i in list_news: # i = [202, 3, '校党委理论学习中心组开展2022集体学习(new)', datetime.d0, 'https://www.sdust.htm']
     att=0
     while att<=5:
       try:
-        now_url = i[4]
-        now_title = i[2]
-        now_datetime = i[3]
-        # print(now_url)
-        list_page_only_text = get_pages_only_text(now_url) # [202, 2, 'text', '12月15日']
-        list_page_only_text_str = get_pages_only_text(now_url)[3]
-        now_click_num = get_title_on_news(now_url)[4]  #[202, 3, '校党委理论', datetime.datetime(2022, 12, 16, 0, 0), '844']
-        cnt_now+=1
-        print('完成下载:{} 点击率:{} {now_cnt}/{all_cnt}'.format(now_title,now_click_num,now_cnt=cnt_now,all_cnt=cnt_pages))
-        db.insert_content_db(now_title, now_datetime, now_click_num, list_page_only_text_str, now_url)
+        asyncio.run(do_something(i,cnt_now))
         db.commit_db()
+        cnt_now+=1
         break
       except Exception as e:
-        print('[dayi-error]未知错误 e:{}'.format(str(e)))
+        print('[dayi-error]未知错误 e:{} att:{}'.format(str(e),att))
       att+=1  
   return
 
 main()
+db.commit_db()

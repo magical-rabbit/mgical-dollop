@@ -194,13 +194,15 @@ class dayi_db_ovo:
     
     
 
-# db = dayi_db_ovo()
+
 # db.insert_pic_db("http://iuqiweuoqwe.qeryuiqewirqe.cc/rq134132.png12.21.33")
 
 # print(db.sql_command(sql_text="Select * from covid_19_data"))
 
-# dt = datetime.datetime(2022,1,1)
+
 # db.insert_covid_date(dt,"山东省","37000000",sure_add=1,sure_all=10,die_all=0,die_add=0)
 
+# dt = datetime.datetime(2022,1,1)
+# db = dayi_db_ovo()
 # db.insert_content_db("标题",dt,"2333","猴子开飞机",'http://monkey',"http://pic_monkey")
 # db.conn.commit()
