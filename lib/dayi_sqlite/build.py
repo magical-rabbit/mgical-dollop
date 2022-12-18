@@ -6,7 +6,7 @@ import os #解析文件名（手动解析也是可以的，但是 str(media_url)
 from urllib.parse import urlparse #用这个解析url比较安全
 
 __dayi_debug__ = True
-__dayi_rm_db__ = False
+__dayi_rm_db__ = True
 
 class dayi_db_ovo:
   def __init__(self,dbpath='./dayi-db.db'):
@@ -84,11 +84,13 @@ class dayi_db_ovo:
     table_create_media_list="""
       CREATE TABLE IF NOT EXISTS media_list (
         "id" INTEGER NOT NULL,
+        "media_date_str" TEXT,
         "media_uuid" TEXT,
         "media_url" TEXT,
         "media_local_path" TEXT,
         "media_type" TEXT,
         "media_file_size" TEXT,
+        "media_is_downloaded" TEXT,
         "json" TEXT,
         PRIMARY KEY ("id")
       );
@@ -132,29 +134,31 @@ class dayi_db_ovo:
     self.cur.execute(sql_command)
     self.conn.commit()
   
-  def insert_pic_db(self,media_url,media_local_path='./data/news.sdust/data/pic/',media_type='jpg'):
+  def insert_pic_db(self, media_url, media_local_path='./data/news.sdust/data/pic/', media_type='jpg', date: datetime=datetime.datetime(2022,1,1)):
     """图片插入
     "media_url" TEXT, 图片URL
     "media_local_path" TEXT 图片的本地存储路径,仅目录,图片名字用UUID生成
     "media_type" TEXT, 图片的类型
     "media_file_size" TEXT, 图片的大小
-    "media_uuid" TEXT,
+    "media_uuid" TEXT, 图片UUID
+    "media_is_downloaded" TEXT, 图片是否已经下载
+    "media_date_str" TEXT, 图片的日期
     Args:
         参数其实只有url有用
     """
     
     table_name='media_list' #表名
-    
     media_uuid=uuid.uuid1() #生成UUID
-    # media_type=str(media_url).split('.')[-1].lower() #这样写其实不是很好
-    # print()
-    # print(urlparse(media_url).path)
+    date_str = date.strftime("%Y%m%d")
+    date_str_month = date.strftime("%m")
+    date_str_year  = date.strftime("%Y")
+    
     _,media_type=os.path.splitext(urlparse(media_url).path) #这样相对安全一点
+    # media_type=str(media_url).split('.')[-1].lower() #这样写其实不是很好 #获得扩展名
     
-    media_local_path_with_file_name = media_local_path+str(media_uuid)+media_type
-    # print(media_local_path_with_file_name)
-    
-    sql_command= "insert or ignore into {table_name} (media_uuid,media_url,media_local_path,media_type) values ('{media_uuid}','{media_url}','{media_local_path}','{media_type}')".format(table_name=table_name,media_uuid=media_uuid,media_local_path=media_local_path_with_file_name,media_type=media_type.split('.')[-1],media_url=media_url)
+    media_local_path_with_file_name = media_local_path+'{}/{}/'.format(date_str_year,date_str_month)+str(media_uuid)+media_type #获得本地路径
+    print(media_local_path_with_file_name)
+    sql_command= "insert or ignore into {table_name} (media_uuid,media_url,media_local_path,media_type,media_is_downloaded,media_date_str) values ('{media_uuid}','{media_url}','{media_local_path}','{media_type}','{media_is_downloaded}','{media_date_str}')".format(table_name=table_name,media_uuid=media_uuid,media_local_path=media_local_path_with_file_name,media_type=media_type.split('.')[-1],media_url=media_url,media_is_downloaded=0,media_date_str=date_str)
     # print(sql_command)
     self.cur.execute(sql_command)
     self.conn.commit()
