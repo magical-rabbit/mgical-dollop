@@ -158,7 +158,7 @@ class dayi_db_ovo:
     # media_type=str(media_url).split('.')[-1].lower() #这样写其实不是很好 #获得扩展名
     
     media_local_path_with_file_name = media_local_path+'{}/{}/'.format(date_str_year,date_str_month)+str(media_uuid)+media_type #获得本地路径
-    print(media_local_path_with_file_name)
+    # print(media_local_path_with_file_name)
     sql_command= "insert or ignore into {table_name} (media_uuid,media_url,media_local_path,media_type,media_is_downloaded,media_date_str) values ('{media_uuid}','{media_url}','{media_local_path}','{media_type}','{media_is_downloaded}','{media_date_str}')".format(table_name=table_name,media_uuid=media_uuid,media_local_path=media_local_path_with_file_name,media_type=media_type.split('.')[-1],media_url=media_url,media_is_downloaded=0,media_date_str=date_str)
     # print(sql_command)
     self.cur.execute(sql_command)

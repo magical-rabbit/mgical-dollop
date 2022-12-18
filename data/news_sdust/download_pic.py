@@ -20,10 +20,10 @@ async def async_get_and_save_pic(url,file_save_path,file_name):
   file_all_path = file_save_path+file_name
   async with aiohttp.ClientSession() as session:
     async with session.get(test_url) as response:
-      print("Status:", response.status)
-      print("Content-type:", response.headers['content-type'])
+      # print("Status:", response.status)
+      # print("Content-type:", response.headers['content-type'])
       if not os.path.isdir(file_save_path):
-        os.mkdir(file_save_path)
+        os.makedirs(file_save_path)
       with open(file_all_path, "wb") as f:
         data = await response.read()
         f.write(data)
