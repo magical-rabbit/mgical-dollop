@@ -150,3 +150,6 @@ data/news.sdust/debug_test.txt
 list_news.dat.debug.bak
 list_news.dat.debug.dat
 list_news.dat.debug.dir
+*.jpg
+*.png
+data/news.sdust/data/pic
