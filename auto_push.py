@@ -3,7 +3,7 @@ os.system("git pull")
 os.system("git add .")
 import datetime
 dt = datetime.datetime.now()
-dt_str = dt.strftime("%y年%m月%d日%H:%M:%S 词云美观调整")
+dt_str = dt.strftime("%y年%m月%d日%H:%M:%S requirements.txt")
 
 os2 = 'git commit -m "{}" '.format(dt_str)
 print(os2)
