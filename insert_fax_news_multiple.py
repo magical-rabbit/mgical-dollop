@@ -6,6 +6,7 @@ from urllib.parse import urlparse #用这个解析url比较安全
 
 from data.news_sdust import * #爬虫相关的库
 from multiprocessing import Pool #多线程
+import os,time,random #错误时，进行暂停爬取
 
 def main():
   list_news = get_all_news()
@@ -42,12 +43,13 @@ def do_something(i):
 def do_something_protect(i):
   # print('完成下载:{} 点击率:{} {now_cnt}/{all_cnt}'.format(now_title,now_click_num,now_cnt=cnt_now,all_cnt=cnt_pages))
   att=0
-  while att<=10:
+  while att<=30:
     try:
       do_something(i)
       break
     except Exception as e:
-      print('[dayi-error]未知错误 e:{} retrying:{}/10'.format(str(e),att))
+      time.sleep(random.randint(1, 10)) #随机睡眠时间，尽可能避免拥堵
+      print('[dayi-error]未知错误 e:{} retrying:{}/30'.format(str(e),att))
       att+=1  
   return 
 
