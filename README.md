@@ -2,7 +2,7 @@
 
 > nothing , but a python homework
 
-[![Coverage Status](https://coveralls.io/repos/github/magical-rabbit/mgical-dollop/badge.svg?branch=main)](https://coveralls.io/github/magical-rabbit/mgical-dollop?branch=main)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 ## Install
 
