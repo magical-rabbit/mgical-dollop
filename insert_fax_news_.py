@@ -6,8 +6,23 @@ from urllib.parse import urlparse #用这个解析url比较安全
 
 from data.news_sdust import * #爬虫相关的库
 import time,random
+from sqlalchemy import create_engine
 
 f = open('test-out.debug','w',encoding='utf-8') #调试信息的输出
+
+def main():
+  list_news = get_all_news()
+  # list_news = debug_load() #从缓存文件中读入
+  f.write(str(list_news)) 
+
+  from multiprocessing.dummy import Pool
+  pool=Pool(32)
+  text_list=pool.map(do_something_protect#进行多线程的目标函数名，没有()
+                   ,list_news#传入数据的列表
+                   )
+  return
+
+
 
 cnt_pages = -1
 
@@ -28,7 +43,6 @@ def do_something(i):
     rr = get_and_download(pic_url,'./data/news_sdust/data/pic/'+now_datetime.strftime("%Y/%m/"),'{}{}'.format(pic_uuid,media_type))
     if rr[0]!=201:
       print(rr)
-
   db.insert_content_db(now_title, now_datetime, now_click_num, list_page_only_text_str, now_url)
 
 def do_something_protect(i):
@@ -45,21 +59,6 @@ def do_something_protect(i):
   return 
 
 
-from sqlalchemy import create_engine
-
-
-
-def main():
-  list_news = get_all_news()
-  # list_news = debug_load() #从缓存文件中读入
-  f.write(str(list_news)) 
-
-  from multiprocessing.dummy import Pool
-  pool=Pool(32)
-  text_list=pool.map(do_something_protect#进行多线程的目标函数名，没有()
-                   ,list_news#传入数据的列表
-                   )
-  return
 
 main()
 db.commit_db()
