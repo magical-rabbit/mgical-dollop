@@ -42,7 +42,7 @@ def do_something(i):
   list_pics = get_pages_pic(now_url)
   for j in list_pics: #[202, 2, 'pic', 'https://ta.sdust.edu.cn/__local/2/D9/3D/B62E635229FAD159BD3B74F8CA6_EFF684AB_2BB65.jpg'
     pic_url = j[3] 
-    pic_uuid = db.insert_pic_db(pic_url)
+    pic_uuid = db.insert_pic_db(pic_url,now_datetime)
     _,media_type=os.path.splitext(urlparse(pic_url).path)
     rr = get_and_download(pic_url,'./data/news_sdust/data/pic/'+now_datetime.strftime("%Y/%m/"),'{}{}'.format(pic_uuid,media_type))
     if rr[0]!=201:
