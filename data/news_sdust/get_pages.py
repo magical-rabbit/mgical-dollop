@@ -38,8 +38,9 @@ ua = UserAgent()
 
 def get_pages_only_text(url:str):
   try:
-    res = requests.get(url,timeout=3)
     headers={'User-Agent':ua.random} #随机生成UA
+    res = requests.get(url,timeout=3,headers=headers) #想不到2024年5月还能来修这个代码
+    
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
     news_con = soup.find('div',class_ ='v_news_content')
